@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: user-service
+
+  telegram:
+      bot:
+        username: SpringDemoBots_bot
+        token: 8068869257:AAERO1CbWBQ76E-WWBNKB5PT-rrKQz1NenY
+server:
+  port: 5432
