@@ -1,9 +1,10 @@
 package com.example.user_service.service;
 
+import com.example.user_service.code.Mapper;
 import com.example.user_service.code.User;
 import com.example.user_service.code.UserDto;
-import com.example.user_service.code.UserMapper;
-import com.example.user_service.repository.UserRepository; // убедитесь, что вы импортируете UserRepository
+import com.example.user_service.UserMapper;
+import com.example.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,37 +14,41 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository; // Конструкторное внедрение
-    private final UserMapper userMapper;
+    private final Mapper mapper;
+    private final UserRepository userRepository;
+//    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(Mapper mapper, UserRepository userRepository, UserMapper userMapper) {
+        this.mapper = mapper;
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
+//        this.userMapper = userMapper;
     }
 
-    public UserDto getUserById(Integer id) {
+    public UserDto convertToDto(User user) {
+        return mapper.userToUserDto(user); // Преобразование User в UserDto
+    }
+
+    public User convertToEntity(UserDto userDto) {
+        return mapper.userDtoToUser(userDto); // Преобразование UserDto в User
+    }
+
+    public UserDto getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found")); // Убедитесь, что используете подходящее исключение
-        return userMapper.userToUserDto(user);
+        return mapper.userToUserDto(user);
     }
 
     public void createUser(UserDto userDto) {
-        User user = userMapper.userDtoToUser(userDto);
+        User user = mapper.userDtoToUser(userDto);
         userRepository.save(user);
     }
 
     @Transactional
     public void saveOrUpdateUser(UserDto userDto) {
-        Optional<User> existingUserOptional = userRepository.findByUserName(userDto.getUserName());
+        User user = mapper.userDtoToUser(userDto);
+        userRepository.save(user);
 
-        if (existingUserOptional.isEmpty()) {
-            userRepository.save(userMapper.userDtoToUser(userDto));
-        } else {
-            User existingUser = existingUserOptional.get();
-            userMapper.updateUserFromDto(userDto, existingUser); // Обновляем существующего пользователя
-            userRepository.save(existingUser);
-        }
     }
 
     public Optional<User> findByUserName(String userName) {

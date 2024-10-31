@@ -1,5 +1,7 @@
-package com.example.user_service.code;
+package com.example.user_service;
 
+import com.example.user_service.code.User;
+import com.example.user_service.code.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -10,5 +12,5 @@ public interface UserMapper {
 
     User userDtoToUser(UserDto userDto);
 
-    User updateUserFromDto(UserDto userDto, @MappingTarget User existingUser);
+    void updateUserFromDto(UserDto userDto, @MappingTarget User existingUser);
 }

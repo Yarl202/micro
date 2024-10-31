@@ -1,11 +1,13 @@
 package com.example.user_service.code;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -14,21 +16,24 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @JsonProperty("first_name")
+    @Column(name = "telegram_id")
+    private Long telegramId;
+
+    @Column(name = "first_name")
     private String firstName;
 
-    @JsonProperty("last_name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @JsonProperty("user_name")
+    @Column(name = "user_name")
     private String userName;
 
-    @JsonProperty("message_text")
+    @Column(name = "text")
     private String text;
 
-    @JsonProperty("phone_number")
+    @Column(name = "phone")
     private String phone;
 
 

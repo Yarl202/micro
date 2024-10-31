@@ -33,10 +33,12 @@
 	</properties>
 	<dependencies>
 
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${mapstruct.vesion}</version>
+			<scope>provided</scope>
 		</dependency>
 
 
@@ -45,6 +47,8 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.vesion}</version>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
@@ -124,6 +128,16 @@
 			<plugin>
 				<groupId>org.cyclonedx</groupId>
 				<artifactId>cyclonedx-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source> <!-- depending on your project -->
+					<target>1.8</target> <!-- depending on your project -->
+
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
