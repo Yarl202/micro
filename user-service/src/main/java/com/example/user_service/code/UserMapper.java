@@ -3,7 +3,7 @@ package com.example.user_service.code;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class UserMapper {
     // Метод для преобразования User в UserDto
     public UserDto userToUserDto(User user) {
         if (user == null) {
