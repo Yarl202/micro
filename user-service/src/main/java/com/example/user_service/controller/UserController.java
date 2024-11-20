@@ -1,7 +1,7 @@
 package com.example.user_service.controller;
 
-import com.example.user_service.code.User;
-import com.example.user_service.code.UserDto;
+import com.example.user_service.entity.UserEntity;
+import com.example.user_service.DTO.UserDto;
 import com.example.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/find/{username}")
-    public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
-        Optional<User> user = userService.findByUserName(username);
+    public ResponseEntity<UserEntity> findUserByUsername(@PathVariable String username) {
+        Optional<UserEntity> user = userService.findByUserName(username);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

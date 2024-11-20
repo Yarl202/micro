@@ -1,4 +1,4 @@
-package com.example.user_service.code;
+package com.example.user_service.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

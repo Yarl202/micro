@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>user-service</artifactId>
+	<artifactId>userEntity-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-service</name>
+	<name>userEntity-service</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -32,6 +32,12 @@
 		<mapstruct.vesion>1.6.2</mapstruct.vesion>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>3.2.4</version>
+		</dependency>
 
 
 		<dependency>

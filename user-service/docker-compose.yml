@@ -8,9 +8,10 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     ports:
-      - '5432:5432'  # Проброс порта из контейнера на хост
+      - '5433:5432'  # Проброс порта из контейнера на хост
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Для сохранения данных между перезапусками контейнера
+
 
 volumes:
   postgres_data:
