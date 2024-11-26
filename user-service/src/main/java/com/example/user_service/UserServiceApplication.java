@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories(basePackages = "com.example.user_service.repository")
+@EnableJpaRepositories(basePackages = "com.example.user_service.Repository")
 @EntityScan(basePackages = "com.example.user_service.code")
 @SpringBootApplication
 public class UserServiceApplication {

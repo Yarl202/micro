@@ -1,4 +1,4 @@
-package com.example.user_service.entity;
+package com.example.user_service.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user_telegram_bot")
+@Table(name = "user_bot")
 public class UserEntity {
 
     @Id

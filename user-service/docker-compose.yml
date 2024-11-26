@@ -3,16 +3,61 @@ version: '3.8'
 services:
   postgres:
     image: 'postgres:latest'
+    container_name: postgres
     environment:
       - POSTGRES_DB=database
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     ports:
-      - '5433:5432'  # Проброс порта из контейнера на хост
+      - '5432:5432'  # Проброс порта из контейнера на хост
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Для сохранения данных между перезапусками контейнера
 
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '2181:2181'
+    networks:
+      - kafka_network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - '9092:9092'
+    networks:
+      - kafka_network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - '8080:8080'
+    environment:
+      DYNAMIC_CONFIG_ENABLED: "true"
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    networks:
+      - kafka_network
+
+networks:
+  kafka_network:
+    driver: bridge
 
 volumes:
   postgres_data:
-

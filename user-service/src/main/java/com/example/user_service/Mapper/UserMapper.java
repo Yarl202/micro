@@ -1,7 +1,7 @@
-package com.example.user_service.mapper;
+package com.example.user_service.Mapper;
 
 import com.example.user_service.DTO.UserDto;
-import com.example.user_service.entity.UserEntity;
+import com.example.user_service.Entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
